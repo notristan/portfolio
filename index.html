@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Portfolio | Data Visualization</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400&display=swap" rel="stylesheet">
+  </head>
+  <body>
+    <canvas id="webgl-canvas"></canvas>
+
+    <main class="ui-layer">
+      
+      <header>
+        <div class="brand">+ @Tristan</div>
+      </header>
+
+      <nav class="project-list">
+        <ul>
+          <li class="active" data-project="home">+ HOME</li>
+          
+          <li class="nav-group">
+            + SPATIAL INTELLIGENCE
+            </li>
+
+          <li class="nav-group">
+            + DATA
+            <ul class="submenu">
+              <li data-project="synapse">SYNAPSE</li>
+              <li data-project="tarmak">TARMAK</li>
+            </ul>
+          </li>
+
+          <li data-project="contact">+ PERCEPTION</li>
+        </ul>
+      </nav>
+
+      <footer class="bottom-info">
+        <div class="tagline">DATA VISUALIZATION DIRECTOR</div>
+      </footer>
+      
+      <div id="project-info">
+        <div class="info-panel">
+          <h2 id="project-title">PORTFOLIO</h2>
+          <p id="project-desc">Description tactique du projet...</p>
+          <a href="#" id="project-link" target="_blank" class="launch-btn">LAUNCH_PROJECT ↗</a>
+        </div>
+      </div>
+
+    </main>
+
+    <script type="module" src="/src/main.js"></script>
+  </body>
+</html>

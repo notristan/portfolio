@@ -175,3 +175,43 @@ body {
   background: rgba(255, 255, 255, 0.1);
   border-color: #00e5ff;
 }
+
+/* =========================================
+   ANIMATION TERMINAL "HOME"
+   ========================================= */
+   #welcome-terminal {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 30; /* Au-dessus de tout le reste */
+    pointer-events: none; /* Ne bloque pas les clics */
+    
+    /* Typographie "Code" */
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 48px;
+    font-weight: 300;
+    color: #ffffff;
+    letter-spacing: 4px;
+    white-space: nowrap; /* Empêche le retour à la ligne pendant l'animation */
+    text-shadow: 0 0 10px rgba(255, 255, 255, 0.3); /* Léger glow */
+    
+    /* État initial : invisible */
+    opacity: 0;
+    transition: opacity 0.5s ease;
+  }
+  
+  #welcome-terminal.active {
+    opacity: 1;
+  }
+  
+  /* Le petit curseur clignotant à la fin du texte */
+  .cursor {
+    display: inline-block;
+    animation: blink 1s step-end infinite;
+  }
+  
+  @keyframes blink {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0; }
+  }

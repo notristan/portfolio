@@ -169,6 +169,10 @@ function switchProject(id) {
             gsap.to(partMat, { opacity: 0.2, duration: 1 });
             canvas.style.filter = 'blur(12px)';
             gsap.to(camera.position, { z: 8, duration: 2.5 });
+
+            // 🟢 AJOUT : Déclenchement de l'animation Typewriter
+            triggerTypewriter("Welcome to the perception.");
+
         } else {
             const targetPlane = id === 'synapse' ? synapsePlane : tarmakPlane;
             const data = PROJECT_DATA[id];
@@ -239,3 +243,37 @@ window.addEventListener('resize', () => {
     camera.updateProjectionMatrix();
     renderer.setSize(window.innerWidth, window.innerHeight);
 });
+
+// ==========================================
+// 6. ANIMATION TYPEWRITER (Terminal)
+// ==========================================
+let typewriterTimeout;
+
+function triggerTypewriter(text) {
+    const terminalContainer = document.getElementById('welcome-terminal');
+    const textElement = document.getElementById('typewriter-text');
+    
+    // Réinitialisation
+    clearTimeout(typewriterTimeout);
+    textElement.textContent = '';
+    terminalContainer.classList.add('active');
+
+    let i = 0;
+    const speed = 70; // Vitesse de frappe (en ms par lettre)
+
+    function typeWriter() {
+        if (i < text.length) {
+            textElement.textContent += text.charAt(i);
+            i++;
+            typewriterTimeout = setTimeout(typeWriter, speed);
+        } else {
+            // Une fois terminé, on efface le texte après 3 secondes
+            typewriterTimeout = setTimeout(() => {
+                terminalContainer.classList.remove('active');
+            }, 3000);
+        }
+    }
+
+    // Démarre l'animation
+    typeWriter();
+}

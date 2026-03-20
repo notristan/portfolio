@@ -139,18 +139,22 @@ const linkEl = document.querySelector('#project-link');
 function switchProject(id) {
     if (id === currentProject) return;
 
+    // --- 🎨 FIX VISUEL : Met à jour la surbrillance du menu ---
+    document.querySelectorAll('[data-project]').forEach(el => el.classList.remove('active'));
+    const activeLink = document.querySelector(`[data-project="${id}"]`);
+    if (activeLink) activeLink.classList.add('active');
+
+    // On ferme la fenêtre d'infos pour l'animation
+    if (infoOverlay) infoOverlay.classList.remove('active');
+
     // --- 🛑 FADE OUT de la scène actuelle ---
-    // Masque les matériaux de l'objet actuel
     if (currentProject === 'home') {
         homeGroup.traverse(obj => { if(obj.material) gsap.to(obj.material, { opacity: 0, duration: 0.5 }); });
         gsap.to(partMat, { opacity: 0, duration: 0.5 });
     } else {
         const currentPlane = currentProject === 'synapse' ? synapsePlane : tarmakPlane;
-        gsap.to(currentPlane.material, { opacity: 0, duration: 0.5 });
+        if (currentPlane) gsap.to(currentPlane.material, { opacity: 0, duration: 0.5 });
     }
-    // UI
-    document.querySelectorAll('[data-project]').forEach(el => el.classList.remove('active'));
-    if (infoOverlay) infoOverlay.classList.remove('active');
 
     // Zoom out caméra léger
     gsap.to(camera.position, { z: 8, duration: 1.5 }); 
@@ -170,7 +174,7 @@ function switchProject(id) {
             canvas.style.filter = 'blur(12px)';
             gsap.to(camera.position, { z: 8, duration: 2.5 });
 
-            // 🟢 AJOUT : Déclenchement de l'animation Typewriter
+            // 🟢 Déclenchement de l'animation Typewriter
             triggerTypewriter("Welcome to the perception.");
 
         } else {
@@ -196,24 +200,21 @@ function switchProject(id) {
     }, 500); // Temps du fade out
 }
 
-// --- Événement Clic sur le Menu Contact ---
-const contactToggle = document.getElementById('contact-toggle');
-const contactMenu = document.getElementById('contact-menu');
-
-if (contactToggle && contactMenu) {
-    // Ouvre/Ferme le menu au clic sur + CONTACT
-    contactToggle.addEventListener('click', (e) => {
-        e.stopPropagation(); // Empêche le clic de se propager dans le vide
-        contactMenu.classList.toggle('active');
-    });
-
-    // Optionnel mais très "pro" : ferme le menu si tu cliques n'importe où ailleurs sur l'écran
-    document.addEventListener('click', (e) => {
-        if (!contactMenu.contains(e.target) && e.target !== contactToggle) {
-            contactMenu.classList.remove('active');
+// --- Événements Clic sur le Menu ---
+document.querySelectorAll('[data-project]').forEach(item => {
+    item.addEventListener('click', (e) => {
+        const projectId = e.currentTarget.dataset.project;
+        
+        // 🛡️ SÉCURITÉ ANTI-CRASH : Ignore le clic si le projet n'est pas dans la base de données
+        if (projectId !== 'home' && !PROJECT_DATA[projectId]) {
+            console.warn(`[SYSTEM] Standby : La cible ${projectId} n'est pas encore opérationnelle.`);
+            return; 
         }
+        
+        switchProject(projectId);
     });
-}
+});
+
 
 // ==========================================
 // 5. BOUCLE D'ANIMATION

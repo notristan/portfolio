@@ -267,10 +267,15 @@ function triggerTypewriter(text) {
             i++;
             typewriterTimeout = setTimeout(typeWriter, speed);
         } else {
-            // Une fois terminé, on efface le texte après 3 secondes
+            // Une fois l'écriture terminée, on attend 1.5s puis on dissipe le tout
             typewriterTimeout = setTimeout(() => {
                 terminalContainer.classList.remove('active');
-            }, 3000);
+                
+                // 🟢 DISSIPATION DU BROUILLARD
+                // Le CSS (transition: filter 1.5s) va s'occuper de rendre ça fluide
+                document.querySelector('#webgl-canvas').style.filter = 'blur(0px)';
+                
+            }, 1500); // 1.5 secondes de pause pour lire la phrase
         }
     }
 

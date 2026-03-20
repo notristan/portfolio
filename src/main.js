@@ -196,14 +196,24 @@ function switchProject(id) {
     }, 500); // Temps du fade out
 }
 
-// --- Événements Clic sur le Menu ---
-document.querySelectorAll('[data-project]').forEach(item => {
-    item.addEventListener('click', (e) => {
-        // Ajoute la classe 'active' au lien cliqué
-        e.target.classList.add('active');
-        switchProject(e.target.dataset.project);
+// --- Événement Clic sur le Menu Contact ---
+const contactToggle = document.getElementById('contact-toggle');
+const contactMenu = document.getElementById('contact-menu');
+
+if (contactToggle && contactMenu) {
+    // Ouvre/Ferme le menu au clic sur + CONTACT
+    contactToggle.addEventListener('click', (e) => {
+        e.stopPropagation(); // Empêche le clic de se propager dans le vide
+        contactMenu.classList.toggle('active');
     });
-});
+
+    // Optionnel mais très "pro" : ferme le menu si tu cliques n'importe où ailleurs sur l'écran
+    document.addEventListener('click', (e) => {
+        if (!contactMenu.contains(e.target) && e.target !== contactToggle) {
+            contactMenu.classList.remove('active');
+        }
+    });
+}
 
 // ==========================================
 // 5. BOUCLE D'ANIMATION

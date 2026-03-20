@@ -217,45 +217,56 @@ border-color: #00e5ff;
 }
 
 /* =========================================
-  MENU DE CONTACT TACTIQUE (Haut Gauche)
-  ========================================= */
-  .contact-group {
-  position: relative;
-  display: inline-block;
-  padding-bottom: 20px; /* Zone de survol sécurisée */
-}
-
-.contact-submenu {
-  position: absolute;
-  top: 25px;
-  left: 0;
-  list-style: none;
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-  opacity: 0;
-  visibility: hidden;
-  transform: translateY(-10px);
-  transition: all 0.4s ease;
-}
-
-.contact-group:hover .contact-submenu {
-  opacity: 1;
-  visibility: visible;
-  transform: translateY(0);
-}
-
-.contact-submenu li a {
-  font-size: 9px;
-  letter-spacing: 3px;
-  color: rgba(255, 255, 255, 0.4);
-  text-decoration: none;
-  transition: color 0.3s ease, padding-left 0.3s ease;
-  display: block;
-  font-family: monospace; /* Renforce le côté code/data */
-}
-
-.contact-submenu li a:hover {
-  color: #00e5ff;
-  padding-left: 6px; /* Effet de glissement au survol */
-}
+   MENU DE CONTACT TACTIQUE (Clic)
+   ========================================= */
+   .contact-group {
+    position: relative;
+    display: inline-block;
+    pointer-events: auto; /* Indispensable pour autoriser le clic */
+  }
+  
+  .contact-submenu {
+    position: absolute;
+    top: 35px; /* Décalé vers le bas pour ne pas chevaucher */
+    left: 0;
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    
+    /* Style du panneau HUD */
+    background: rgba(0, 15, 20, 0.85); 
+    backdrop-filter: blur(8px);
+    padding: 15px;
+    border: 1px solid #00e5ff;
+    border-radius: 4px;
+    box-shadow: 0 4px 15px rgba(0, 229, 255, 0.1);
+    
+    /* Masqué par défaut */
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(-10px);
+    transition: all 0.3s ease;
+  }
+  
+  /* 🟢 La classe gérée par le clic en JavaScript */
+  .contact-submenu.active {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+  }
+  
+  .contact-submenu li a {
+    font-size: 9px;
+    letter-spacing: 3px;
+    color: rgba(255, 255, 255, 0.6);
+    text-decoration: none;
+    transition: color 0.3s ease, padding-left 0.3s ease;
+    display: block;
+    font-family: monospace;
+  }
+  
+  .contact-submenu li a:hover {
+    color: #00e5ff;
+    padding-left: 6px;
+  }

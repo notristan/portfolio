@@ -139,7 +139,7 @@ function switchProject(id) {
             canvas.style.filter = 'blur(12px)';
             gsap.to(camera.position, { z: 8, duration: 2.5 });
 
-            triggerTypewriter("Welcome to the perception.");
+            triggerTypewriter("What is reality ?");
 
         } else {
             const targetPlane = id === 'synapse' ? synapsePlane : tarmakPlane;
